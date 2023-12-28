@@ -3,7 +3,7 @@ package com.example.bbtest.controller;
 import com.example.bbtest.dto.LoginDTO;
 import com.example.bbtest.dto.MemberDTO;
 import com.example.bbtest.model.MemberEntity;
-import com.example.bbtest.security.TokenProvider;
+//import com.example.bbtest.security.TokenProvider;
 import com.example.bbtest.service.MemberService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +22,8 @@ public class MemberController {
     @Autowired
     CheckValidator checkValidator;
 
-   @Autowired
-   TokenProvider tokenProvider;
+//   @Autowired
+//   TokenProvider tokenProvider;
 
     @PostMapping
     public ResponseEntity<?> createMember(@RequestBody MemberDTO dto) {
@@ -93,12 +93,12 @@ public class MemberController {
         MemberEntity member = memberService.getByCredentials(dto.getUsername(),dto.getPassword());
 
         if(member != null) {
-            final String token = tokenProvider.create(member);
+//            final String token = tokenProvider.create(member);
 
             final LoginDTO responseDTO = LoginDTO.builder()
                     .username(member.getUsername())
                     .id(member.getId())
-                    .token(token)
+//                    .token(token)
                     .build();
             return ResponseEntity.ok().body(responseDTO);
         }else{

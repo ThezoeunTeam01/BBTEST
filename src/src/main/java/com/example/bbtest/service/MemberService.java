@@ -36,7 +36,7 @@ public class MemberService {
 
         return member;
     }
-
+    
     // 로그인 인증
     public MemberEntity getByCredentials(final String username, String password) {
         return memberRepository.findByUsernameAndPassword(username, password);
