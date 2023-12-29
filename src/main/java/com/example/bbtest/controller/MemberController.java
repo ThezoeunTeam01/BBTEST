@@ -88,19 +88,22 @@ public class MemberController {
             return ResponseEntity.badRequest().body(error);
         }
     }
+
+    // 로그인
     @PostMapping("/signin")
     public ResponseEntity<?> authenticate(@RequestBody LoginDTO dto) {
         MemberEntity member = memberService.getByCredentials(dto.getUsername(),dto.getPassword());
+        log.info(member);
 
         if(member != null) {
             final String token = tokenProvider.create(member);
 
-            final LoginDTO responseDTO = LoginDTO.builder()
+            final LoginDTO loginDTO = LoginDTO.builder()
                     .username(member.getUsername())
                     .id(member.getId())
                     .token(token)
                     .build();
-            return ResponseEntity.ok().body(responseDTO);
+            return ResponseEntity.ok().body(loginDTO);
         }else{
             return ResponseEntity.ok().body("Login failed");
         }
